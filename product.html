@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Товар — FitNutrition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="announcement-bar" id="announcement-bar">
+    <div class="announcement-bar-inner">🚚 Бесплатная доставка от 3000 ₽ · Скидка 15% по коду <strong>WELCOME15</strong> · <a href="promotions.html">Все акции</a></div>
+    <button type="button" class="announcement-bar-close" id="announcement-close" aria-label="Закрыть">×</button>
+  </div>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">FitNutrition</a></div>
+      <nav class="nav">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="promotions.html">Акции</a>
+        <a href="blog.html">Блог</a>
+        <a href="about.html">О нас</a>
+        <a href="delivery.html">Доставка</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <form class="search-form" action="catalog.html" method="get"><input type="search" name="q" placeholder="Поиск..." aria-label="Поиск"><button type="submit">Найти</button></form>
+        <a href="cart.html" class="cart-link">Корзина <span id="cart-count" class="cart-count">0</span></a>
+        <a href="account.html" class="btn btn-secondary">Личный кабинет</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <nav class="breadcrumbs" id="breadcrumbs"></nav>
+    <div class="product-detail" id="product-detail">
+      <p style="color: var(--text-muted);">Загрузка...</p>
+    </div>
+    <section class="reviews-section">
+      <h2 class="section-title">Отзывы и рейтинг</h2>
+      <div class="review-item">
+        <div class="rating">★★★★☆ 4.8</div>
+        <div class="author">Алексей, 28.01.2026</div>
+        <p>Отличный протеин, хорошо растворяется. Заказываю не в первый раз.</p>
+      </div>
+      <div class="review-item">
+        <div class="rating">★★★★★ 5</div>
+        <div class="author">Мария, 15.01.2026</div>
+        <p>Быстрая доставка, упаковка целая. Рекомендую магазин.</p>
+      </div>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Оставить отзыв могут только зарегистрированные пользователи в <a href="account.html">личном кабинете</a>.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-trust">
+      <div class="footer-trust-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Оплата картой</div>
+      <div class="footer-trust-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Доставка по России</div>
+    </div>
+    <div class="footer-inner">
+      <div><h4>Каталог</h4><ul><li><a href="catalog.html">Все товары</a></li></ul></div>
+      <div><h4>Информация</h4><ul><li><a href="about.html">О нас</a></li><li><a href="contacts.html">Контакты</a></li></ul></div>
+    </div>
+    <p class="footer-copy">© 2026 FitNutrition. Учебный проект.</p>
+  </footer>
+  <a href="tel:88001234567" class="fab-contact" title="Позвонить">📞</a>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      const product = id && typeof getProductById !== 'undefined' ? getProductById(id) : null;
+      const cat = product && typeof getCategoryById !== 'undefined' ? getCategoryById(product.category) : null;
+
+      const bread = document.getElementById('breadcrumbs');
+      if (bread) {
+        bread.innerHTML = `<a href="index.html">Главная</a> → <a href="catalog.html">Каталог</a>${cat ? ` → <a href="catalog.html?cat=${cat.id}">${cat.name}</a>` : ''} → ${product ? product.name : 'Товар'}`;
+      }
+
+      const block = document.getElementById('product-detail');
+      if (!block) return;
+      if (!product) {
+        block.innerHTML = '<p style="color: var(--text-muted);">Товар не найден. <a href="catalog.html">В каталог</a></p>';
+        return;
+      }
+
+      block.innerHTML = `
+        <div class="product-gallery">
+          <img src="${product.image}" alt="${product.name}">
+        </div>
+        <div class="product-info">
+          <h1>${product.name}</h1>
+          <div class="price">${product.price.toLocaleString('ru-RU')} ₽</div>
+          <p class="description">${product.description}</p>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">Вес: ${product.weight} · Рейтинг: ${product.rating}</p>
+          <div class="quantity-selector">
+            <label>Количество:</label>
+            <div class="quantity-stepper">
+              <button type="button" id="qty-minus" aria-label="Уменьшить">−</button>
+              <input type="number" id="qty" value="1" min="1" max="99">
+              <button type="button" id="qty-plus" aria-label="Увеличить">+</button>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" id="add-to-cart" data-id="${product.id}">Добавить в корзину</button>
+        </div>
+      `;
+      var qtyInput = document.getElementById('qty');
+      var qtyMin = 1, qtyMax = 99;
+      function updateQty() {
+        var v = parseInt(qtyInput.value, 10);
+        if (isNaN(v) || v < qtyMin) v = qtyMin;
+        if (v > qtyMax) v = qtyMax;
+        qtyInput.value = v;
+        document.getElementById('qty-minus').disabled = v <= qtyMin;
+        document.getElementById('qty-plus').disabled = v >= qtyMax;
+      }
+      document.getElementById('qty-minus').addEventListener('click', function () {
+        qtyInput.value = Math.max(qtyMin, parseInt(qtyInput.value, 10) - 1);
+        updateQty();
+      });
+      document.getElementById('qty-plus').addEventListener('click', function () {
+        qtyInput.value = Math.min(qtyMax, parseInt(qtyInput.value, 10) + 1);
+        updateQty();
+      });
+      qtyInput.addEventListener('change', updateQty);
+      updateQty();
+
+      document.getElementById('add-to-cart').addEventListener('click', () => {
+        const qty = parseInt(qtyInput.value, 10) || 1;
+        if (window.FitNutrition) window.FitNutrition.addToCart(product.id, qty);
+        const btn = document.getElementById('add-to-cart');
+        btn.textContent = 'Добавлено в корзину';
+        setTimeout(() => { btn.textContent = 'Добавить в корзину'; }, 2000);
+      });
+    })();
+  </script>
+</body>
+</html>

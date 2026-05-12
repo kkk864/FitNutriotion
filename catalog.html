@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог — FitNutrition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="announcement-bar" id="announcement-bar">
+    <div class="announcement-bar-inner">🚚 Бесплатная доставка от 3000 ₽ · Скидка 15% по коду <strong>WELCOME15</strong> · <a href="promotions.html">Все акции</a></div>
+    <button type="button" class="announcement-bar-close" id="announcement-close" aria-label="Закрыть">×</button>
+  </div>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">FitNutrition</a></div>
+      <nav class="nav">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="promotions.html">Акции</a>
+        <a href="blog.html">Блог</a>
+        <a href="about.html">О нас</a>
+        <a href="delivery.html">Доставка</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <form class="search-form" action="catalog.html" method="get">
+          <input type="search" name="q" placeholder="Поиск..." aria-label="Поиск" id="search-input">
+          <button type="submit">Найти</button>
+        </form>
+        <a href="cart.html" class="cart-link">Корзина <span id="cart-count" class="cart-count">0</span></a>
+        <a href="account.html" class="btn btn-secondary">Личный кабинет</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <nav class="breadcrumbs">
+      <a href="index.html">Главная</a> → Каталог
+    </nav>
+    <h1 class="page-title">Каталог товаров</h1>
+
+    <div class="catalog-layout">
+      <aside class="filters">
+        <h3>Категории</h3>
+        <div id="filter-categories"></div>
+        <h3 style="margin-top: 1rem;">Цена, ₽</h3>
+        <label>от <input type="number" id="price-min" placeholder="0" min="0"></label>
+        <label>до <input type="number" id="price-max" placeholder="10000"></label>
+        <button type="button" class="btn btn-primary" style="margin-top: 0.75rem; width: 100%;" id="apply-filters">Применить</button>
+      </aside>
+      <div>
+        <div class="sort-bar">
+          <label>Сортировка:</label>
+          <select id="sort-select">
+            <option value="default">По умолчанию</option>
+            <option value="price-asc">Сначала дешевле</option>
+            <option value="price-desc">Сначала дороже</option>
+            <option value="name">По названию</option>
+            <option value="rating">По рейтингу</option>
+          </select>
+        </div>
+        <div class="products-grid" id="products-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-trust">
+      <div class="footer-trust-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Оплата картой</div>
+      <div class="footer-trust-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Наличными при получении</div>
+      <div class="footer-trust-item"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg> Доставка по России</div>
+    </div>
+    <div class="footer-inner">
+      <div><h4>Каталог</h4><ul><li><a href="catalog.html?cat=protein">Протеин</a></li><li><a href="catalog.html">Все товары</a></li></ul></div>
+      <div><h4>Информация</h4><ul><li><a href="about.html">О нас</a></li><li><a href="delivery.html">Доставка</a></li><li><a href="contacts.html">Контакты</a></li></ul></div>
+    </div>
+    <p class="footer-copy">© 2026 FitNutrition. Учебный проект.</p>
+  </footer>
+  <a href="tel:88001234567" class="fab-contact" title="Позвонить">📞</a>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const catParam = params.get('cat');
+      const qParam = params.get('q');
+
+      const catEl = document.getElementById('filter-categories');
+      if (catEl && typeof CATEGORIES !== 'undefined') {
+        catEl.innerHTML = CATEGORIES.map(c =>
+          `<label><input type="checkbox" name="cat" value="${c.id}" ${catParam === c.id ? 'checked' : ''}> ${c.name}</label>`
+        ).join('');
+      }
+
+      let list = catParam ? getProductsByCategory(catParam) : PRODUCTS;
+      if (qParam && qParam.trim()) {
+        const q = qParam.trim().toLowerCase();
+        list = list.filter(p => p.name.toLowerCase().includes(q));
+      }
+
+      function productCardHtml(p) {
+        const badge = p.badge ? `<span class="product-card-badge ${p.badge}">${p.badge === 'sale' ? '−15%' : 'Новинка'}</span>` : '';
+        const stars = '★'.repeat(Math.round(p.rating || 0)) + '☆'.repeat(5 - Math.round(p.rating || 0));
+        return `<article class="product-card">
+          <div class="product-card-image">${badge}<img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+          <div class="product-card-body">
+            <h3 class="product-card-title"><a href="product.html?id=${p.id}">${p.name}</a></h3>
+            <div class="product-card-meta"><span class="product-card-rating">${stars}</span> ${(p.rating || 0).toFixed(1)} · ${p.weight}</div>
+            <div class="product-card-price">${p.price.toLocaleString('ru-RU')} ₽</div>
+            <button type="button" class="btn btn-primary" data-add-cart="${p.id}">В корзину</button>
+          </div>
+        </article>`;
+      }
+      function render(products) {
+        const grid = document.getElementById('products-grid');
+        if (!grid) return;
+        grid.innerHTML = products.length ? products.map(p => productCardHtml(p)).join('') : '<p style="color: var(--text-muted);">Товары не найдены.</p>';
+        grid.querySelectorAll('[data-add-cart]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (window.FitNutrition) window.FitNutrition.addToCart(parseInt(btn.dataset.addCart, 10));
+            btn.textContent = 'Добавлено';
+            setTimeout(() => { btn.textContent = 'В корзину'; }, 1500);
+          });
+        });
+      }
+
+      function applyFiltersAndSort() {
+        let result = [...list];
+        const minPrice = parseInt(document.getElementById('price-min')?.value, 10);
+        const maxPrice = parseInt(document.getElementById('price-max')?.value, 10);
+        if (!isNaN(minPrice) && minPrice > 0) result = result.filter(p => p.price >= minPrice);
+        if (!isNaN(maxPrice) && maxPrice > 0) result = result.filter(p => p.price <= maxPrice);
+        const checked = document.querySelectorAll('.filters input[name="cat"]:checked');
+        if (checked.length) {
+          const cats = Array.from(checked).map(c => c.value);
+          result = result.filter(p => cats.includes(p.category));
+        }
+        const sort = document.getElementById('sort-select')?.value;
+        if (sort === 'price-asc') result.sort((a, b) => a.price - b.price);
+        else if (sort === 'price-desc') result.sort((a, b) => b.price - a.price);
+        else if (sort === 'name') result.sort((a, b) => a.name.localeCompare(b.name));
+        else if (sort === 'rating') result.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+        render(result);
+      }
+
+      document.getElementById('apply-filters')?.addEventListener('click', applyFiltersAndSort);
+      document.getElementById('sort-select')?.addEventListener('change', applyFiltersAndSort);
+      if (document.getElementById('search-input') && qParam) document.getElementById('search-input').value = qParam;
+      applyFiltersAndSort();
+    })();
+  </script>
+</body>
+</html>

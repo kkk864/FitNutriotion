@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitNutrition — магазин спортивного питания</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Верхняя полоска с акцией (как на реальных магазинах) -->
+  <div class="announcement-bar" id="announcement-bar">
+    <div class="announcement-bar-inner">
+      🚚 Бесплатная доставка от 3000 ₽ &nbsp;·&nbsp; Скидка 15% по коду <strong>WELCOME15</strong> &nbsp;·&nbsp; <a href="promotions.html">Все акции</a>
+    </div>
+    <button type="button" class="announcement-bar-close" id="announcement-close" aria-label="Закрыть">×</button>
+  </div>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">FitNutrition</a></div>
+      <nav class="nav">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="promotions.html">Акции</a>
+        <a href="blog.html">Блог</a>
+        <a href="about.html">О нас</a>
+        <a href="delivery.html">Доставка</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <form class="search-form" action="catalog.html" method="get">
+          <input type="search" name="q" placeholder="Поиск..." aria-label="Поиск">
+          <button type="submit">Найти</button>
+        </form>
+        <a href="cart.html" class="cart-link">Корзина <span id="cart-count" class="cart-count">0</span></a>
+        <a href="account.html" class="btn btn-secondary">Личный кабинет</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="hero reveal revealed">
+      <h1>Спортивное питание с доставкой по России</h1>
+      <p>Протеин, гейнеры, витамины и добавки от проверенных брендов. Бесплатная доставка от 3000 ₽.</p>
+      <a href="catalog.html" class="btn btn-primary">Перейти в каталог</a>
+    </section>
+
+    <!-- Блок статистики -->
+    <div class="stats-strip reveal">
+      <div class="stat-item"><strong>24+</strong><span>Товаров в каталоге</span></div>
+      <div class="stat-item"><strong>2–5</strong><span>Дней доставка</span></div>
+      <div class="stat-item"><strong>5000+</strong><span>Довольных клиентов</span></div>
+      <div class="stat-item"><strong>24/7</strong><span>Поддержка</span></div>
+    </div>
+
+    <div class="section-title-wrap reveal">
+      <h2 class="section-title">Подбор по цели</h2>
+      <span class="section-title-line"></span>
+    </div>
+    <div class="categories reveal" id="categories-home"></div>
+
+    <div class="section-title-wrap reveal">
+      <h2 class="section-title">Хиты продаж</h2>
+      <span class="section-title-line"></span>
+    </div>
+    <div class="products-grid reveal" id="products-hit"></div>
+
+    <div class="section-title-wrap reveal">
+      <h2 class="section-title">Акции</h2>
+      <span class="section-title-line"></span>
+    </div>
+    <div class="promo-banner reveal">
+      <strong>Скидка 15% на первый заказ</strong> — используйте код <strong>WELCOME15</strong> при оформлении. <a href="promotions.html">Все акции</a>
+    </div>
+
+    <h2 class="section-title reveal">Почему мы</h2>
+    <div class="features-grid reveal">
+      <div class="feature-card">
+        <div class="feature-card-icon">🚚</div>
+        <h3>Бесплатная доставка</h3>
+        <p>При заказе от 3000 ₽ по всей России</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">✓</div>
+        <h3>Сертификаты качества</h3>
+        <p>Только оригинальная продукция</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">💬</div>
+        <h3>Консультации</h3>
+        <p>Поможем подобрать по целям</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon">💳</div>
+        <h3>Оплата при получении</h3>
+        <p>Картой или наличными</p>
+      </div>
+    </div>
+
+    <h2 class="section-title reveal">Отзывы покупателей</h2>
+    <div class="testimonials reveal">
+      <div class="testimonial-card">
+        <p>Заказываю протеин уже третий раз. Всё приходит быстро, упаковка целая. Цены адекватные, менеджер помог с выбором.</p>
+        <div class="testimonial-card-footer">
+          <div class="testimonial-avatar">АК</div>
+          <div>
+            <div class="testimonial-name">Алексей К.</div>
+            <div class="testimonial-meta">Москва · 3 заказа</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p>Отличный ассортимент витаминов и добавок. Удобно, что есть бесплатная доставка — заказываю сразу на месяц.</p>
+        <div class="testimonial-card-footer">
+          <div class="testimonial-avatar">МС</div>
+          <div>
+            <div class="testimonial-name">Мария С.</div>
+            <div class="testimonial-meta">Санкт-Петербург · 5 заказов</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p>Рекомендую! Быстрая обработка заказа, всё как на сайте. Буду заказывать ещё.</p>
+        <div class="testimonial-card-footer">
+          <div class="testimonial-avatar">ДВ</div>
+          <div>
+            <div class="testimonial-name">Дмитрий В.</div>
+            <div class="testimonial-meta">Казань · 1 заказ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-trust">
+      <div class="footer-trust-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        Оплата картой
+      </div>
+      <div class="footer-trust-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Наличными при получении
+      </div>
+      <div class="footer-trust-item">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Доставка по всей России
+      </div>
+    </div>
+    <div class="footer-inner">
+      <div>
+        <h4>Каталог</h4>
+        <ul>
+          <li><a href="catalog.html?cat=protein">Протеин</a></li>
+          <li><a href="catalog.html?cat=gainer">Гейнеры</a></li>
+          <li><a href="catalog.html?cat=amino">Аминокислоты</a></li>
+          <li><a href="catalog.html">Все товары</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Информация</h4>
+        <ul>
+          <li><a href="about.html">О нас</a></li>
+          <li><a href="delivery.html">Доставка и оплата</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+          <li><a href="blog.html">Блог</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Контакты</h4>
+        <p style="color: var(--text-muted);">8 (800) 123-45-67<br>info@fitnutrition.ru</p>
+      </div>
+    </div>
+    <p class="footer-copy">© 2026 FitNutrition. Учебный проект.</p>
+  </footer>
+
+  <!-- Кнопка «Наверх» (добавляется скриптом) -->
+  <!-- Плавающая кнопка «Позвонить» -->
+  <a href="tel:88001234567" class="fab-contact" title="Позвонить">📞</a>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/ui.js"></script>
+  <script>
+    (function () {
+      const catEl = document.getElementById('categories-home');
+      if (catEl && typeof CATEGORIES !== 'undefined') {
+        catEl.innerHTML = CATEGORIES.map(c =>
+          `<a href="catalog.html?cat=${c.id}" class="category-card"><span>${c.name}</span></a>`
+        ).join('');
+      }
+      function productCardHtml(p) {
+        const badge = p.badge ? `<span class="product-card-badge ${p.badge}">${p.badge === 'sale' ? '−15%' : 'Новинка'}</span>` : '';
+        const stars = '★'.repeat(Math.round(p.rating || 0)) + '☆'.repeat(5 - Math.round(p.rating || 0));
+        return `<article class="product-card">
+          <div class="product-card-image">${badge}<img src="${p.image}" alt="${p.name}" loading="lazy"></div>
+          <div class="product-card-body">
+            <h3 class="product-card-title"><a href="product.html?id=${p.id}">${p.name}</a></h3>
+            <div class="product-card-meta"><span class="product-card-rating">${stars}</span> ${(p.rating || 0).toFixed(1)} · ${p.weight}</div>
+            <div class="product-card-price">${p.price.toLocaleString('ru-RU')} ₽</div>
+            <button type="button" class="btn btn-primary" data-add-cart="${p.id}">В корзину</button>
+          </div>
+        </article>`;
+      }
+      const hitEl = document.getElementById('products-hit');
+      if (hitEl && typeof PRODUCTS !== 'undefined') {
+        const hit = PRODUCTS.slice(0, 8);
+        hitEl.innerHTML = hit.map(p => productCardHtml(p)).join('');
+        hitEl.querySelectorAll('[data-add-cart]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            if (window.FitNutrition) window.FitNutrition.addToCart(parseInt(btn.dataset.addCart, 10));
+            btn.textContent = 'Добавлено';
+            setTimeout(() => { btn.textContent = 'В корзину'; }, 1500);
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Статья — FitNutrition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo"><a href="index.html">FitNutrition</a></div>
+      <nav class="nav">
+        <a href="index.html">Главная</a>
+        <a href="catalog.html">Каталог</a>
+        <a href="blog.html">Блог</a>
+        <a href="about.html">О нас</a>
+        <a href="contacts.html">Контакты</a>
+      </nav>
+      <div class="header-actions">
+        <a href="cart.html" class="cart-link">Корзина <span id="cart-count" class="cart-count">0</span></a>
+        <a href="account.html" class="btn btn-secondary">Личный кабинет</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <nav class="breadcrumbs"><a href="index.html">Главная</a> → <a href="blog.html">Блог</a> → <span id="article-title-bread">Статья</span></nav>
+    <article id="article-content">
+      <p style="color: var(--text-muted);">Загрузка...</p>
+    </article>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div><h4>Блог</h4><ul><li><a href="blog.html">Все статьи</a></li></ul></div>
+    </div>
+    <p class="footer-copy">© 2026 FitNutrition. Учебный проект.</p>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    (function () {
+      const params = new URLSearchParams(location.search);
+      const id = params.get('id');
+      const article = typeof BLOG_ARTICLES !== 'undefined' && id ? BLOG_ARTICLES.find(a => a.id === parseInt(id, 10)) : null;
+      const titleEl = document.getElementById('article-title-bread');
+      const contentEl = document.getElementById('article-content');
+      if (!article) {
+        if (titleEl) titleEl.textContent = 'Статья';
+        if (contentEl) contentEl.innerHTML = '<p style="color: var(--text-muted);">Статья не найдена. <a href="blog.html">К списку статей</a></p>';
+        return;
+      }
+      if (titleEl) titleEl.textContent = article.title;
+      if (contentEl) {
+        var bodyHtml = article.body
+          ? '<div class="article-body">' + article.body.split('. ').map(function (s) { return s ? '<p>' + s + (s.slice(-1) !== '.' ? '.' : '') + '</p>' : ''; }).join('') + '</div>'
+          : '<div class="content-block"><p>' + article.excerpt + '</p></div>';
+        contentEl.innerHTML = `
+          <h1 class="page-title">${article.title}</h1>
+          <p style="color: var(--text-muted); margin-bottom: 1rem;">${article.date}</p>
+          <img src="${article.image}" alt="" class="article-image">
+          ${bodyHtml}
+          <p><a href="blog.html" class="btn btn-secondary">← Назад к блогу</a></p>
+        `;
+      }
+    })();
+  </script>
+</body>
+</html>
